@@ -12,6 +12,7 @@ import time
 import os
 import json
 import re
+import main
 
 app = Flask(__name__)
 
@@ -28,6 +29,7 @@ def addUserToDB(dictfile, db='static/database.json'):
 			return
 		except Exception as exp:
 			pass
+	dictfile['joinDate'] = main.getTodayDate()
 	database['users'].append(dictfile)
 	with open(db, 'w') as outfile:
 		json.dump(database, outfile)
@@ -72,9 +74,6 @@ def addUser(database="static/Hackathons.csv"):
 def genLongLat(location):
 	return str(geolocator.geocode(location)[1]).strip('(').strip(')')
 
-def determineTeamQuality(member1, member2):
-	a = diffBetween(member1, member2)
-	return clf.predict([a[2]])
 
 
 if __name__ == "__main__":
