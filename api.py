@@ -28,7 +28,7 @@ DATASET = "static/val.csv"
 
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
 def returnHackathons(database="static/Hackathons.csv"):
 	a = []
 	with open(database) as csvfile:
@@ -49,6 +49,16 @@ def returnHackathons(database="static/Hackathons.csv"):
 		except Exception as exp:
 			pass
 	return render_template("index.html", hackathons=a)
+
+@app.route('/addUser', methods=['POST'])
+def addUser(database="static/Hackathons.csv"):
+	postData = request.get_json(silent=True)
+	schoolName = postData['schoolName']
+	githubName = postData['githubName']
+	personName = postData['personName']
+	email = postData['submissionEmail']
+	major = postData['majorName']
+	return jsonify(['school'])
 
 
 def genLongLat(location):
