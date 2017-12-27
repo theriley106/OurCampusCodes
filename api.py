@@ -19,26 +19,15 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
-def returnHackathons(database="static/database.json"):
-	a = []
-	with open(database) as csvfile:
-		rows = csv.reader(csvfile)
-		res = list(rows)
-	for lines in res:
-		try:
-			information = {}
-			information["Location"] = lines[1]
-			information["Pic"] = lines[2]
-			information["Title"] = lines[0]
-			longLat = lines[3]
-			Long = longLat.partition(',')[0].strip()
-			Lat = longLat.partition(',')[2].strip()
-			information["Long"] = Long
-			information["Lat"] = Lat
-			a.append(information)
-		except Exception as exp:
-			pass
-	return render_template("index.html", primaryDB=a)
+def returnHackathons():
+	colleges = []
+	collegeLocations = json.load(open('static/collegeLocations.json'))
+	returnInfo = []
+	for val in collegeLocations.items()[:50]:
+		colleges.append(val[0])
+	for college in colleges:
+		returnInfo.append({"schoolURL": url_for('returnSchoolInfo', schoolName=college.replace(' ', "_")), "schoolName": college, "Lat": collegeLocations[college]['latitude'], "Long": collegeLocations[college]['longitude']})
+	return render_template("index.html", primaryDB=returnInfo)
 
 @app.route('/commitBySchool/<schoolName>', methods=['GET'])
 def returnSchoolInfo(schoolName):
