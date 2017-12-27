@@ -11,6 +11,7 @@ import csv
 import time
 import os
 import json
+import re
 
 app = Flask(__name__)
 
@@ -31,7 +32,12 @@ def addUserToDB(dictfile, db='static/database.json'):
 	with open(db, 'w') as outfile:
 		json.dump(database, outfile)
 
+def returnAllColleges(db='static/database.json'):
+	return re.findall('schoolName\S\S\s\S([^"]*)', str(open(db).read()))
 
+def returnCollegeLocations(college):
+	locations = json.load(open('static/collegeLocations.json'))[college]
+	return (locations['latitude'], locations['longitude'])
 
 
 
@@ -40,9 +46,7 @@ def returnHackathons():
 	colleges = []
 	collegeLocations = json.load(open('static/collegeLocations.json'))
 	returnInfo = []
-	for val in collegeLocations.items()[:50]:
-		colleges.append(val[0])
-	for college in colleges:
+	for college in returnAllColleges():
 		returnInfo.append({"schoolURL": url_for('returnSchoolInfo', schoolName=college.replace(' ', "_")), "schoolName": college, "Lat": collegeLocations[college]['latitude'], "Long": collegeLocations[college]['longitude']})
 	return render_template("index.html", primaryDB=returnInfo)
 
@@ -55,12 +59,9 @@ def addUser(database="static/Hackathons.csv"):
 	information = {}
 	postData = request.get_json(silent=True)
 	#print postData
-	schoolName = postData['schoolName']
 	githubName = postData['githubName']
-	personName = postData['personName']
-	email = postData['submissionEmail']
-	major = postData['majorName']
-	userName = postData['userName']
+	schoolName = postData['schoolName']
+	schoolLat, schoolLong = returnCollegeLocations(schoolName)
 	name = url_for('returnSchoolInfo', schoolName=str(schoolName).replace(' ', "_"))
 	postData['schoolURL'] = name
 	information[githubName] = postData
