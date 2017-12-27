@@ -26,9 +26,7 @@ app = Flask(__name__)
 
 DATASET = "static/val.csv"
 
-with open('schools.csv', 'rb') as f:
-    reader = csv.reader(f)
-    your_list = list(reader)
+
 
 
 @app.route('/', methods=['GET'])
@@ -53,6 +51,10 @@ def returnHackathons(database="static/Hackathons.csv"):
 			pass
 	return render_template("index.html", hackathons=a)
 
+@app.route('/commitBySchool/<schoolName>', methods=['GET'])
+def returnSchoolInfo(schoolName):
+	return "<h1>This Works</h1>"
+
 @app.route('/addUser', methods=['POST'])
 def addUser(database="static/Hackathons.csv"):
 	postData = request.get_json(silent=True)
@@ -61,6 +63,8 @@ def addUser(database="static/Hackathons.csv"):
 	personName = postData['personName']
 	email = postData['submissionEmail']
 	major = postData['majorName']
+	userName = postData['userName']
+	schoolURL = url_for('returnSchoolInfo', schoolName=schoolName.replace(' ', "_"))
 	return jsonify(['school'])
 
 
