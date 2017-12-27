@@ -40,8 +40,10 @@ def returnAllColleges(db='static/database.json'):
 def returnCollegeLocations(college):
 	locations = json.load(open('static/collegeLocations.json'))[college]
 	return (locations['latitude'], locations['longitude'])
-
-
+	
+@app.route('/test', methods=['GET'])
+def test():
+	return render_template("frontPage.html")
 
 @app.route('/', methods=['GET'])
 def returnHackathons():
