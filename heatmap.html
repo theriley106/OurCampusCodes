@@ -20,7 +20,7 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoidGhlcmlsZXkxMDYiLCJhIjoiY2o4cm1xZzdnMTgzMDMzbnR1d3Q2Y2p6byJ9.C-Kuwbt67fBaEg0V5rGXzg';
 var map = new mapboxgl.Map({
     container: 'map',
-    style: 'mapbox://styles/mapbox/streets-v9',
+    style: 'mapbox://styles/mapbox/dark-v9',
     center: [-95.7129, 40.0902],
     zoom: 4.2
 });
@@ -63,12 +63,12 @@ map.on('load', function() {
                 "interpolate",
                 ["linear"],
                 ["heatmap-density"],
-                0, "rgba(33,102,172,0)",
-                0.2, "rgb(103,169,207)",
-                0.4, "rgb(209,229,240)",
-                0.6, "rgb(253,219,199)",
-                0.8, "rgb(239,138,98)",
-                1, "rgb(178,24,43)"
+                0, "rgb(35,81,0)",
+                0.2, "rgb(60, 140, 0)",
+                0.4, "rgb(70,163,0)",
+                0.6, "rgb(78,181,0)",
+                0.8, "rgb(87,201,0)",
+                1, "rgb(110, 255, 0)"
             ],
             //Adjust the heatmap radius by zoom level
             "heatmap-radius": {
@@ -88,47 +88,6 @@ map.on('load', function() {
         }
     });
 
-    map.addLayer({
-        "id": "earthquakes-point",
-        "type": "circle",
-        "source": "earthquakes",
-        "minzoom": 7,
-        "paint": {
-            //Size circle raidus by earthquake magnitude and zoom level
-            "circle-radius": {
-                "property": "mag",
-                "type": "exponential",
-                "stops": [
-                    [{ zoom: 7, value: 1 }, 1],
-                    [{ zoom: 7, value: 6 }, 4],
-                    [{ zoom: 16, value: 1 }, 5],
-                    [{ zoom: 16, value: 6 }, 50],
-                ]
-            },
-            //Color circle by earthquake magnitude
-            "circle-color": {
-                "property": "mag",
-                "type": "exponential",
-                "stops": [
-                    [1, "rgba(33,102,172,0)"],
-                    [2, "rgb(103,169,207)"],
-                    [3, "rgb(209,229,240)"],
-                    [4, "rgb(253,219,199)"],
-                    [5, "rgb(239,138,98)"],
-                    [6, "rgb(178,24,43)"]
-                ]
-            },
-            "circle-stroke-color": "white",
-            "circle-stroke-width": 1,
-            //Transition from heatmap to circle layer by zoom level
-            "circle-opacity": {
-                "stops": [
-                    [7, 0],
-                    [8, 1]
-                ]
-            }
-        }
-    });
 });
 </script>
 
