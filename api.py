@@ -15,14 +15,14 @@ import json
 app = Flask(__name__)
 
 
-def readDB(db='/static/database.json'):
+def readDB(db='static/database.json'):
 	return json.load(open(db))
 
-def addUser(dictfile, db='/static/database.json'):
+def addUserToDB(dictfile, db='static/database.json'):
 	database = json.load(open(db))
 	database['users'].append(dictfile)
 	with open(db, 'w') as outfile:
-    	json.dump(database, outfile)
+		json.dump(database, outfile)
 
 
 
@@ -46,14 +46,18 @@ def returnSchoolInfo(schoolName):
 @app.route('/addUser', methods=['POST'])
 def addUser(database="static/Hackathons.csv"):
 	postData = request.get_json(silent=True)
+	#print postData
 	schoolName = postData['schoolName']
-	githubName = postData['githubName']
+	'''githubName = postData['githubName']
 	personName = postData['personName']
 	email = postData['submissionEmail']
 	major = postData['majorName']
-	userName = postData['userName']
-	schoolURL = url_for('returnSchoolInfo', schoolName=schoolName.replace(' ', "_"))
-	return jsonify(['school'])
+	userName = postData['userName']'''
+	name = url_for('returnSchoolInfo', schoolName=str(schoolName).replace(' ', "_"))
+	postData['schoolURL'] = name
+	print postData
+	addUserToDB(postData)
+	return jsonify(postData)
 
 
 def genLongLat(location):
