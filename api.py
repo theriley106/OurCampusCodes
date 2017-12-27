@@ -20,6 +20,13 @@ def readDB(db='static/database.json'):
 
 def addUserToDB(dictfile, db='static/database.json'):
 	database = json.load(open(db))
+	print dictfile.items()[0][0]
+	for val in database['users']:
+		try:
+			print str(val[dictfile.items()[0][0]]) + "already in db"
+			return
+		except Exception as exp:
+			pass
 	database['users'].append(dictfile)
 	with open(db, 'w') as outfile:
 		json.dump(database, outfile)
@@ -45,19 +52,20 @@ def returnSchoolInfo(schoolName):
 
 @app.route('/addUser', methods=['POST'])
 def addUser(database="static/Hackathons.csv"):
+	information = {}
 	postData = request.get_json(silent=True)
 	#print postData
 	schoolName = postData['schoolName']
-	'''githubName = postData['githubName']
+	githubName = postData['githubName']
 	personName = postData['personName']
 	email = postData['submissionEmail']
 	major = postData['majorName']
-	userName = postData['userName']'''
+	userName = postData['userName']
 	name = url_for('returnSchoolInfo', schoolName=str(schoolName).replace(' ', "_"))
 	postData['schoolURL'] = name
-	print postData
-	addUserToDB(postData)
-	return jsonify(postData)
+	information[githubName] = postData
+	addUserToDB(information)
+	return jsonify(information)
 
 
 def genLongLat(location):
