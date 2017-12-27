@@ -5,26 +5,15 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 from flask import Flask, request, render_template, request, url_for, redirect, Markup, Response, send_file, send_from_directory, make_response, jsonify
 import requests
-from selenium import webdriver
 import re
-import gpxpy.geo
 import bs4
 import csv
-from itertools import product
 import time
-import glob
-import webbrowser
 import os
 import json
-import threading
-from sklearn import tree
-from geopy.geocoders import Nominatim
-geolocator = Nominatim()
 
 app = Flask(__name__)
 
-
-DATASET = "static/val.csv"
 
 
 
@@ -49,7 +38,7 @@ def returnHackathons(database="static/Hackathons.csv"):
 			a.append(information)
 		except Exception as exp:
 			pass
-	return render_template("index.html", hackathons=a)
+	return render_template("index.html", primaryDB=a)
 
 @app.route('/commitBySchool/<schoolName>', methods=['GET'])
 def returnSchoolInfo(schoolName):
