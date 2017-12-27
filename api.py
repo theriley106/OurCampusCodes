@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
-def returnHackathons(database="static/Hackathons.csv"):
+def returnHackathons(database="static/database.json"):
 	a = []
 	with open(database) as csvfile:
 		rows = csv.reader(csvfile)
