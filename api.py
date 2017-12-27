@@ -26,6 +26,9 @@ app = Flask(__name__)
 
 DATASET = "static/val.csv"
 
+with open('schools.csv', 'rb') as f:
+    reader = csv.reader(f)
+    your_list = list(reader)
 
 
 @app.route('/', methods=['GET'])
