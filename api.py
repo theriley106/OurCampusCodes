@@ -15,6 +15,16 @@ import json
 app = Flask(__name__)
 
 
+def readDB(db='/static/database.json'):
+	return json.load(open(db))
+
+def addUser(dictfile, db='/static/database.json'):
+	database = json.load(open(db))
+	database['users'].append(dictfile)
+	with open(db, 'w') as outfile:
+    	json.dump(database, outfile)
+
+
 
 
 
