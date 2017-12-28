@@ -17,6 +17,10 @@ import main
 app = Flask(__name__)
 
 
+@app.route('/authGithub', methods=['GET'])
+def authGithub():
+	return redirect('https://github.com/login/oauth/authorize?response_type=code&client_id=b7ead49790c005829231&redirect_uri=https%3A%2F%2Fgoogle.com%2F')
+
 def readDB(db='static/database.json'):
 	return json.load(open(db))
 
