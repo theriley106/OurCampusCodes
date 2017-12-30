@@ -1,3 +1,2 @@
 # OurCampusCodes
-Repo to hold my campus codes - an initiative to increase stem involvement in schools across the world.
-
+Repo to hold OurCampusCodes - an initiative to increase STEM involvement in schools across the US.
