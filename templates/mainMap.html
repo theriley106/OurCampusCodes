@@ -11,7 +11,7 @@ var geoJson = [
 {% for info in primaryDB %}
 
 {
-    type: 'Feature',
+    type: "Feature",
     "geometry": { "type": "Point", "coordinates": [{{ info.Lat }}, {{ info.Long }}]},
     "properties": {
         "url": "{{ info.schoolURL }}",
