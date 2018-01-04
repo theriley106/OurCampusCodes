@@ -87,7 +87,7 @@ if __name__ == "__main__":
 	#webbrowser.open("http://0.0.0.0:8888/hackathons")
 	#webbrowser.open("http://0.0.0.0:8888/calc")
 	#webbrowser.open("http://0.0.0.0:8888/map/hackGT2017")
-	app.run(host='0.0.0.0', port=8000)
+	app.run()
 	#print determineTeamQuality('hlin3565', 'NicholasGreenwald')
 	#print len(genAllPossible(genUserFromCsv()))
 	#username = raw_input('Username: ')
