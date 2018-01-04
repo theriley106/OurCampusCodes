@@ -23,3 +23,6 @@ Flask-WhooshAlchemy==0.56
 flask-whooshee==0.4.0
 Flask-WTF==0.13.1
 gunicorn==19.7.1
+SQLAlchemy==1.1.9
+SQLAlchemy-Utils==0.32.11
+psycopg2==2.7.1
