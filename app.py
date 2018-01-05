@@ -47,7 +47,7 @@ def returnCollegeLocations(college):
 	
 @app.route('/test', methods=['GET'])
 def test():
-	return render_template("frontPage.html")
+	return render_template("testing.html")
 
 @app.route('/', methods=['GET'])
 def returnHackathons():

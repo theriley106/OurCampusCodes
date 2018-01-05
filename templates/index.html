@@ -21,40 +21,18 @@
 
 <style>
 	  body { margin:0; padding:0; }
-	  #map { position:absolute; top:0; bottom:0; width:100%; }
 	  .leaflet-popup-content {
 	width:auto !important;
 	}
-	#map
-	{
-	    width: 100px;
-	    height:100px;
-	    min-height: 80%;
-	    min-width: 80%;
-	    display: block;
-	}
+	#map-holder { width: 100%; height:100%; position: fixed;}
+	#map { width: 100%; height:100%; position: relative;}
+	#icon {
+  position: absolute;
+  top: 150px;
+  left: 150px;
+  color: black;
+}
 
-	html, body
-	{
-	    height: 80%;
-	}
-
-	#map-holder{
-	    height: 80%;
-	}
-
-	.fill
-	{
-	    min-height: 80%;
-	    height: 80%;
-	    width: 80%;
-	    max-width: 80%;
-	}
-
-	.container{
-	    max-width:60em;
-	    padding: 0.2em;
-	}
 </style>
 
 
@@ -63,14 +41,17 @@
 
 <body>
 <div id="map-holder">
-  <div class="container fill">
     <div id="map">{% include 'mainMap.html' %}</div>
+
+    <button id="icon">
+Switch layers
+</button>
   </div>
-
-
-
 </div>
+
+<div>
 {% include 'registration.html' %}
 <h1>this works</h1>
+</div>
 </body>
 </html>
