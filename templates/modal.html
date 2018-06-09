@@ -16,8 +16,9 @@
             <input type="text" class="form-control" id="email">
           </div>
           <div class="form-group">
-            <label for="school-name" class="control-label">School Name:</label>
-            <input type="text" class="form-control" id="school-name">
+            {% include 'autoComplete.html' %}
+            <input type="text" list="browsers" class="form-control" placeholder="School Name" id="school-name">
+
           </div>
         </form>
       </div>
