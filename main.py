@@ -27,4 +27,4 @@ def grabCommits(user, since=None):
 def getTodayDate():
 	return datetime.datetime.now().strftime("%Y-%m-%d")
 
-print grabCommits('theriley106', '2017-06-09')
+print grabCommits('theriley106', getTodayDate())
