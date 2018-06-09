@@ -13,6 +13,8 @@ import os
 import json
 import re
 import main
+CLIENT_SECRET = open("client_secret.txt").read().strip()
+CLIENT_ID = open("client_id.txt").read().strip()
 
 app = Flask(__name__)
 
@@ -44,7 +46,7 @@ def returnAllColleges(db='static/database.json'):
 def returnCollegeLocations(college):
 	locations = json.load(open('static/collegeLocations.json'))[college]
 	return (locations['latitude'], locations['longitude'])
-	
+
 @app.route('/test', methods=['GET'])
 def test():
 	return render_template("testing.html")
@@ -76,6 +78,18 @@ def addUser(database="static/Hackathons.csv"):
 	addUserToDB(information)
 	return jsonify(information)
 
+def getAccessToken(code):
+	url = "https://github.com/login/oauth/access_token?client_id={}&client_secret={}&code={}".format(CLIENT_ID, CLIENT_SECRET, code)
+	print url
+	res = requests.post(url)
+	print res.text
+	return res.text.partition("access_token=")[2].partition("&")[0]
+
+@app.route("/register", methods=["POST", "GET"])
+def register():
+	code = request.args.get('code')
+	print code
+	return jsonify({"key": getAccessToken(code)})
 
 def genLongLat(location):
 	return str(geolocator.geocode(location)[1]).strip('(').strip(')')
