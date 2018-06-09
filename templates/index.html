@@ -4,9 +4,6 @@
 <meta charset=utf-8 />
 <title>Our Campus Codes</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
@@ -17,6 +14,17 @@
 <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
 
 <link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+
+
+
+<link href="{{ url_for('static', filename='css/assets/css/bootstrap.css') }}" rel="stylesheet">
+
+<link href="{{ url_for('static', filename='css/assets/css/font-awesome.css') }}" rel="stylesheet">
+
+
+<link href="{{ url_for('static', filename='css/assets/css/docs.css') }}" rel="stylesheet">
+
+<link href="{{ url_for('static', filename='css/bootstrap-social.css') }}" rel="stylesheet">
 
 
 <style>
@@ -44,15 +52,15 @@
 
     <div id="map">
     {% include 'mainMap.html' %}
-    <div align='center'>
-  <button type="button" id="icon" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Register Now
-</button>
-</div>
+
 <div align='center'>
 <button type="button" id="icon" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalz">
   View Public Scoreboard
 </button>
+ <div class="flipthis-wrapper"><a class="btn btn-block btn-social btn-github flipthis-highlight" data-toggle="modal" data-target="#exampleModal">
+            <span class="fa fa-github"></span> Sign in with GitHub
+          </a></div>
+
 </div>
 
 

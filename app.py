@@ -98,6 +98,10 @@ def register():
 	print code
 	return jsonify(getUserInfoFromAccessToken(getAccessToken(code)))
 
+@app.route("/buttonTest", methods=["POST", "GET"])
+def registerz():
+	return render_template("buttonTest.html")
+
 def genLongLat(location):
 	return str(geolocator.geocode(location)[1]).strip('(').strip(')')
 
