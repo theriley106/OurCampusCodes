@@ -15,7 +15,7 @@ import re
 import main
 CLIENT_SECRET = open("client_secret.txt").read().strip()
 CLIENT_ID = open("client_id.txt").read().strip()
-
+SCHOOL_INFO = json.load(open("static/schools.json"))
 app = Flask(__name__)
 
 
@@ -105,7 +105,7 @@ def registerz():
 @app.route("/signUp/<accessToken>", methods=["POST", "GET"])
 def signupPage(accessToken):
 	userInfo = getUserInfoFromAccessToken(accessToken)
-	return render_template("signUp.html", userInfo=userInfo)
+	return render_template("signUp.html", userInfo=userInfo, schoolInfo=SCHOOL_INFO)
 
 def genLongLat(location):
 	return str(geolocator.geocode(location)[1]).strip('(').strip(')')

@@ -80,6 +80,8 @@
 		text-decoration: underline;
 	}
 </style>
+
+
 </head>
 <body>
 <div class="signup-form">
@@ -88,8 +90,14 @@
 		<p>Connect github.com/{{ userInfo.login }} to a University</p>
 		<hr>
 		<div class="form-group">
-			{% include 'autoComplete.html' %}
-        	<input type="school" class="form-control" list="browsers" name="school" placeholder="University Name" required="required">
+		<template id="resultstemplate">
+		{% for school in schoolInfo %}
+		<option>{{ school.displayName }}</option>
+		{% endfor %}
+		</template>
+        	<input type="school" id="search" class="form-control" list="searchresults" name="school" placeholder="University Name" required="required">
+        <datalist id="searchresults">
+        </datalist>
         </div>
         <div class="form-group">
         	<input type="email" class="form-control" name="email" placeholder="Email Address" required="required">
@@ -99,5 +107,20 @@
         </div>
 		<p class="small text-center">By clicking the Sign Up button, you agree to our <br><a href="#">Terms &amp; Conditions</a>, and <a href="#">Privacy Policy</a>.</p>
     </form>
+    <script type="text/javascript">
+		var search = document.querySelector('#search');
+		var results = document.querySelector('#searchresults');
+		var templateContent = document.querySelector('#resultstemplate').content;
+		search.addEventListener('keyup', function handler(event) {
+		    while (results.children.length) results.removeChild(results.firstChild);
+		    var inputVal = new RegExp(search.value.trim(), 'i');
+		    var clonedOptions = templateContent.cloneNode(true);
+		    var set = Array.prototype.reduce.call(clonedOptions.children, function searchFilter(frag, el) {
+		        if (inputVal.test(el.textContent) && frag.children.length < 5) frag.appendChild(el);
+		        return frag;
+		    }, document.createDocumentFragment());
+		    results.appendChild(set);
+		});
+</script>
 </body>
 </html>
