@@ -15,8 +15,9 @@ var geoJson = [
     "geometry": { "type": "Point", "coordinates": [{{ info.location.Longitude }}, {{ info.location.Latitude }}]},
     "properties": {
         "url": "{{ info.schoolURL }}",
+        "image": "{{ info.primaryPhotoThumb }}",
         "marker-color": "#ff8888",
-        "city": "{{ info.schoolName }}",
+        "city": "{{ info.displayName }}",
     }
 },
 {% endif %}
@@ -32,7 +33,7 @@ myLayer.on('layeradd', function(e) {
     // Create custom popup content
     var popupContent =  '<a target="_blank" class="popup" href="' + feature.properties.url + '">' +
                             feature.properties.city +
-                        '</a>';
+                        '</a>' +  '<img src="' + feature.properties.image + '" />';
 
     // http://leafletjs.com/reference.html#popup
     marker.bindPopup(popupContent,{
