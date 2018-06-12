@@ -54,11 +54,8 @@ def test():
 @app.route('/', methods=['GET'])
 def returnHackathons():
 	colleges = []
-	collegeLocations = json.load(open('static/collegeLocations.json'))
-	returnInfo = []
-	for college in returnAllColleges():
-		returnInfo.append({"schoolURL": url_for('returnSchoolInfo', schoolName=college.replace(' ', "_")), "schoolName": college, "Lat": collegeLocations[college]['latitude'], "Long": collegeLocations[college]['longitude']})
-	return render_template("index.html", primaryDB=returnInfo)
+
+	return render_template("index.html", primaryDB=SCHOOL_INFO)
 
 @app.route('/commitBySchool/<schoolName>', methods=['GET'])
 def returnSchoolInfo(schoolName):

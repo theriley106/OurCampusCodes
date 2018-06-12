@@ -9,17 +9,17 @@ var geoJson = [
 
 
 {% for info in primaryDB %}
-
+{% if info.location.Longitude is not none %}
 {
     type: "Feature",
-    "geometry": { "type": "Point", "coordinates": [{{ info.Lat }}, {{ info.Long }}]},
+    "geometry": { "type": "Point", "coordinates": [{{ info.location.Longitude }}, {{ info.location.Latitude }}]},
     "properties": {
         "url": "{{ info.schoolURL }}",
         "marker-color": "#ff8888",
         "city": "{{ info.schoolName }}",
     }
 },
-
+{% endif %}
 {% endfor %}
 
 ];
