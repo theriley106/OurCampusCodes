@@ -96,11 +96,16 @@ def getUserInfoFromAccessToken(accessToken):
 def register():
 	code = request.args.get('code')
 	print code
-	return jsonify(getUserInfoFromAccessToken(getAccessToken(code)))
+	return redirect(url_for('signupPage', accessToken=getAccessToken(code)))
 
 @app.route("/buttonTest", methods=["POST", "GET"])
 def registerz():
 	return render_template("buttonTest.html")
+
+@app.route("/signUp/<accessToken>", methods=["POST", "GET"])
+def signupPage(accessToken):
+	userInfo = getUserInfoFromAccessToken(accessToken)
+	return render_template("signUp.html", userInfo=userInfo)
 
 def genLongLat(location):
 	return str(geolocator.geocode(location)[1]).strip('(').strip(')')
